@@ -22,6 +22,7 @@ import com.guigomes.multicron.R
 import com.guigomes.multicron.data.model.CronTimer
 import com.guigomes.multicron.ui.viewmodel.MainViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -105,7 +106,7 @@ private fun TimerCard(
         elapsedSeconds = computeElapsed(timer)
         if (timer.startedAt != null) {
             val startedAt = timer.startedAt
-            while (true) {
+            while (isActive) {
                 delay(1_000)
                 elapsedSeconds = timer.accumulatedSeconds +
                         (System.currentTimeMillis() - startedAt) / 1000

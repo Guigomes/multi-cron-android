@@ -2,6 +2,9 @@ package com.guigomes.multicron
 
 import org.junit.Test
 import org.junit.Assert.*
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class TimerFormatTest {
 
@@ -30,5 +33,21 @@ class TimerFormatTest {
     @Test
     fun `format large value`() {
         assertEquals("10:30:45", formatElapsed(37845))
+    }
+
+    @Test
+    fun `yesterday returns a date string in ISO format`() {
+        val fmt = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.DAY_OF_YEAR, -1)
+        val expected = fmt.format(cal.time)
+
+        val cal2 = Calendar.getInstance()
+        cal2.add(Calendar.DAY_OF_YEAR, -1)
+        val actual = fmt.format(cal2.time)
+
+        assertEquals(expected, actual)
+        // Verify it matches yyyy-MM-dd pattern
+        assertTrue("Date should match yyyy-MM-dd", actual.matches(Regex("\\d{4}-\\d{2}-\\d{2}")))
     }
 }

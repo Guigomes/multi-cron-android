@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import com.guigomes.multicron.data.db.AppDatabase
 import com.guigomes.multicron.data.repository.TimerRepository
 import kotlinx.coroutines.CoroutineScope
@@ -58,10 +59,18 @@ class MidnightReceiver : BroadcastReceiver() {
             add(Calendar.DAY_OF_YEAR, 1)
         }
 
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            midnight.timeInMillis,
-            pendingIntent
-        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
+            alarmManager.setAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                midnight.timeInMillis,
+                pendingIntent
+            )
+        } else {
+            alarmManager.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                midnight.timeInMillis,
+                pendingIntent
+            )
+        }
     }
 }

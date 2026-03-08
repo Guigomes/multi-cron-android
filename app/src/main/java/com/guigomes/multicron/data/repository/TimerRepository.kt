@@ -5,7 +5,9 @@ import com.guigomes.multicron.data.db.DailyRecordDao
 import com.guigomes.multicron.data.model.CronTimer
 import com.guigomes.multicron.data.model.DailyRecord
 import kotlinx.coroutines.flow.Flow
-import java.time.LocalDate
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class TimerRepository(
     private val cronTimerDao: CronTimerDao,
@@ -24,9 +26,9 @@ class TimerRepository(
 
     /**
      * Saves elapsed seconds for all timers as DailyRecords for [date], then resets all timers.
-     * Called at midnight.
+     * Called at midnight (start of the new day), so [date] defaults to yesterday's date.
      */
-    suspend fun saveDailyRecordsAndReset(date: String = LocalDate.now().toString()) {
+    suspend fun saveDailyRecordsAndReset(date: String = yesterday()) {
         val timers = cronTimerDao.getAllTimersSnapshot()
         val now = System.currentTimeMillis()
 
@@ -51,4 +53,15 @@ class TimerRepository(
 
     fun getDailyRecordsForTimer(timerId: Long): Flow<List<DailyRecord>> =
         dailyRecordDao.getRecordsForTimer(timerId)
+
+    companion object {
+        private val DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+        /** Returns yesterday's date as an ISO string (yyyy-MM-dd). */
+        fun yesterday(): String {
+            val cal = Calendar.getInstance()
+            cal.add(Calendar.DAY_OF_YEAR, -1)
+            return DATE_FORMAT.format(cal.time)
+        }
+    }
 }
