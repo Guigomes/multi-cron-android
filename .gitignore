@@ -24,3 +24,6 @@ local.properties
 
 # ProGuard
 /app/proguard/
+
+# Signing keys and secrets — never commit
+/keystore/
