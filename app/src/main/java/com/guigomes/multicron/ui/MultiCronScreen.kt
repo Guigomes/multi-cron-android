@@ -151,14 +151,18 @@ private fun TimerCard(
                 )
             }
 
-            IconButton(onClick = onToggle) {
+            IconButton(
+                onClick = onToggle,
+                modifier = Modifier.size(48.dp)
+            ) {
                 Icon(
                     imageVector = if (isRunning) Icons.Default.Pause else Icons.Default.PlayArrow,
                     contentDescription = if (isRunning)
                         stringResource(R.string.pause)
                     else
                         stringResource(R.string.play),
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(32.dp)
                 )
             }
 
