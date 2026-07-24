@@ -1,0 +1,29 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Android Studio / IntelliJ
+*.iml
+.idea/
+.DS_Store
+captures/
+.externalNativeBuild/
+.cxx/
+local.properties
+
+# APKs and bundles
+*.apk
+*.aab
+*.ap_
+
+# Generated R files (handled by build system)
+# (not excluded here since they're generated)
+
+# ProGuard
+/app/proguard/
+
+# Signing keys and secrets — never commit
+/keystore/

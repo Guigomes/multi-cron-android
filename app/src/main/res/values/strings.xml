@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MultiCron</string>
+    <string name="add_timer">Adicionar cronômetro</string>
+    <string name="timer_name">Descrição do cronômetro</string>
+    <string name="add">Adicionar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="play">Iniciar</string>
+    <string name="pause">Pausar</string>
+    <string name="delete_timer">Excluir cronômetro</string>
+    <string name="no_timers">Nenhum cronômetro ainda.\nToque em + para adicionar.</string>
+</resources>
